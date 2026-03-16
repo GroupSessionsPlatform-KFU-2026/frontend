@@ -28,24 +28,4 @@ npm install
 npm run dev
 ```
 
-📁 Структура проекта: 
-studiom/
-├── public/              # Статические файлы
-├── src/                 # Исходный код
-│   ├── assets/          # Ресурсы (изображения, стили)
-│   ├── App.tsx          # Главный компонент
-│   ├── App.css          # Стили главного компонента
-│   ├── main.tsx         # Точка входа
-│   └── index.css        # Глобальные стили
-├── .vite/               # Кэш Vite (не попадает в Git)
-├── .husky/              # Git hooks
-├── .gitignore           # Игнорируемые файлы
-├── .prettierrc          # Настройки Prettier
-├── .prettierignore      # Игнорируемые файлы для Prettier
-├── eslint.config.js     # Конфигурация ESLint
-├── index.html           # HTML шаблон
-├── package.json         # Зависимости и скрипты
-├── tsconfig.json        # Настройки TypeScript
-├── tsconfig.app.json    # Настройки TypeScript для приложения
-├── tsconfig.node.json   # Настройки TypeScript для Node.js
-└── vite.config.ts       # Конфигурация Vite
+
