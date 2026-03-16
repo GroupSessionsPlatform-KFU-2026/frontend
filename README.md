@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+📋 Название проекта: Studiom
+Описание: проект представляет собой веб-приложение для создания виртуальных учебных комнат, предназначенных для совместного решения задач в режиме реального времени. Приложение ориентировано на организацию групповой деятельности в онлайн-формате и объединяет инструменты визуального взаимодействия, коммуникации и управления временем в единой среде.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+🛠 Технологический стек:
+- **React** — библиотека для построения пользовательских интерфейсов
+- **TypeScript** — типизированный JavaScript
+- **Vite** — инструмент сборки и разработки
+- **ESLint** — линтинг кода
+- **Prettier** — форматирование кода
+- **Husky** — Git hooks
+- 
+📦 Установка и запуск
+### Системные требования
+- Node.js версии 18 или выше
+- npm версии 9 или выше
+### Пошаговая инструкция
+1. **Клонировать репозиторий**
+  ```bash
+   git clone https://github.com/your-username/studiom.git
+   cd studiom
+```
+2. **Установить зависимости**
+```bash
+npm install
+```
+3. Запустить в режиме разработки
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+📁 Структура проекта: 
+studiom/
+├── public/              # Статические файлы
+├── src/                 # Исходный код
+│   ├── assets/          # Ресурсы (изображения, стили)
+│   ├── App.tsx          # Главный компонент
+│   ├── App.css          # Стили главного компонента
+│   ├── main.tsx         # Точка входа
+│   └── index.css        # Глобальные стили
+├── .vite/               # Кэш Vite (не попадает в Git)
+├── .husky/              # Git hooks
+├── .gitignore           # Игнорируемые файлы
+├── .prettierrc          # Настройки Prettier
+├── .prettierignore      # Игнорируемые файлы для Prettier
+├── eslint.config.js     # Конфигурация ESLint
+├── index.html           # HTML шаблон
+├── package.json         # Зависимости и скрипты
+├── tsconfig.json        # Настройки TypeScript
+├── tsconfig.app.json    # Настройки TypeScript для приложения
+├── tsconfig.node.json   # Настройки TypeScript для Node.js
+└── vite.config.ts       # Конфигурация Vite
