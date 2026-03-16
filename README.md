@@ -16,7 +16,7 @@
 ### Пошаговая инструкция
 1. **Клонировать репозиторий**
   ```bash
-   git clone https://github.com/your-username/studiom.git
+   git clone https://github.com/GroupSessionsPlatform-KFU-2026/frontend.git
    cd studiom
 ```
 2. **Установить зависимости**
