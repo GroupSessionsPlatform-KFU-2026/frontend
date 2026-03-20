@@ -1,18 +1,19 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate} from 'react-router-dom';
 
-//временные заглушки страниц
-const LoginPage = () => <div>Страница входа</div>;
-const RegisterPage = () => <div>Страница регистрации</div>;
-const DashboardPage = () => <div>Список комнат</div>;
-const CreateRoomPage = () => <div>Создание комнаты</div>;
-const RoomPage = () => <div>Страница комнаты</div>;
+import LandingPage from '@/modules/landing/pages/LandingPage';
+import LoginPage from '@/modules/auth/pages/LoginPage';
+import RegisterPage from '@/modules/auth/pages/RegisterPage';
+import DashboardPage from '@/modules/dashboard/pages/DashboardPage';
+import CreateRoomPage from '@/modules/room/pages/CreateRoomPage';
+import RoomPage from '@/modules/room/pages/RoomPage';
 
 
 //после добавления авторизации приватные маршруты (дэшборд, создание комнаты, комната), засунуть в приватный роут
 export const router = createBrowserRouter([
+  //публичные роуты
   {
     path: '/',
-    element: <DashboardPage />,
+    element: <LandingPage />,
   },
   {
     path: '/login',
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
     path: '/register',
     element: <RegisterPage />,
   },
+  //приватный роуты
   {
     path: '/dashboard',
     element: <DashboardPage />,
