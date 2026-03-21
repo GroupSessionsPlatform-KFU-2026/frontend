@@ -8,7 +8,7 @@ import CreateRoomPage from '@/modules/room/pages/CreateRoomPage';
 import RoomPage from '@/modules/room/pages/RoomPage';
 
 
-//после добавления авторизации приватные маршруты (дэшборд, создание комнаты, комната), засунуть в приватный роут
+//TODO: впистаь приватные маршруты в приватный роут после реализации авторизации
 export const router = createBrowserRouter([
   //публичные роуты
   {
