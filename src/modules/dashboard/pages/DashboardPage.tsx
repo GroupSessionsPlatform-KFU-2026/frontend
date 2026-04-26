@@ -5,7 +5,8 @@ import { roomsApi } from '@/api/rooms';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, FolderOpen, DoorOpen, LogIn } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
+import { Plus, FolderOpen, DoorOpen, LogIn, AlertCircle } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -28,23 +29,29 @@ const DashboardPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadData = async () => {
-    setIsLoading(true);
-    try {
-      const [projectsRes, roomsRes] = await Promise.all([projectsApi.getAll(), roomsApi.getAll()]);
+    const loadData = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const [projectsRes, roomsRes] = await Promise.all([
+                projectsApi.getAll(),
+                roomsApi.getAll(),
+            ]);
 
-      const projectsData = projectsRes?.data?.results || [];
-      setProjects(projectsData);
+            const projectsData = projectsRes?.data?.results || [];
+            setProjects(projectsData);
 
-      const roomsData = roomsRes?.data?.results || [];
-      setRooms(roomsData);
-    } catch (error) {
-      console.error('Ошибка загрузки данных:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+            const roomsData = roomsRes?.data?.results || [];
+            setRooms(roomsData);
+        } catch (err) {
+            console.error('Ошибка загрузки данных:', err);
+            setError('Не удалось загрузить данные');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
   useEffect(() => {
     loadData();
@@ -67,11 +74,23 @@ const DashboardPage = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="container mx-auto py-8">
-        <p>Загрузка...</p>
-      </div>
-    );
+      return (
+          <div className="flex items-center justify-center min-h-[60vh]">
+              <Spinner size="lg" />
+          </div>
+      );
+  }
+
+  if (error) {
+      return (
+          <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+              <AlertCircle className="w-12 h-12 text-red-500" />
+              <p className="text-lg text-gray-600">{error}</p>
+              <Button variant="outline" onClick={loadData}>
+                  Попробовать снова
+              </Button>
+          </div>
+      );
   }
 
   return (

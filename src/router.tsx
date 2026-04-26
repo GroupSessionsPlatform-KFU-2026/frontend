@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-
 import LandingPage from '@/modules/landing/pages/LandingPage';
 import LoginPage from '@/modules/auth/pages/LoginPage';
 import RegisterPage from '@/modules/auth/pages/RegisterPage';
@@ -14,24 +13,26 @@ import JoinRoomPage from '@/modules/room/pages/JoinRoomPage';
 
 export const router = createBrowserRouter([
   //паблик роуты
-  { path: '/', element: <LandingPage /> },
-  { path: '/login', element: <LoginPage /> },
-  { path: '/register', element: <RegisterPage /> },
-
-  //приватные роуты(требуют авторизации)
-  //{
-  //element: <ProtectedRoute />,
-  //children: [
-  { path: '/dashboard', element: <DashboardPage /> },
-  { path: '/projects', element: <ProjectsPage /> },
-  { path: '/projects/create', element: <CreateProjectPage /> },
-  { path: '/projects/:id', element: <ProjectDetailsPage /> },
-  { path: '/room/create', element: <CreateRoomPage /> },
-  { path: '/room/:roomId', element: <RoomPage /> },
-  { path: '/join', element: <JoinRoomPage /> },
-  //],
-  //},
+    { path: '/', element: <LandingPage /> },
+    { path: '/login', element: <LoginPage /> },
+    { path: '/register', element: <RegisterPage /> },
+  //приватные роуты
+  {
+    element: <ProtectedRoute />,
+    children: [
+        { path: '/dashboard', element: <DashboardPage /> },
+        { path: '/projects', element: <ProjectsPage /> },
+        { path: '/projects/create', element: <CreateProjectPage /> },
+        { path: '/projects/:id', element: <ProjectDetailsPage /> },
+        { path: '/room/create', element: <CreateRoomPage /> },
+        { path: '/room/:roomId', element: <RoomPage /> },
+        { path: '/join', element: <JoinRoomPage /> },
+    ],
+  },
 
   //404
-  { path: '*', element: <Navigate to="/" replace /> },
+  {
+    path: '*',
+    element: <Navigate to="/" replace />,
+  },
 ]);
