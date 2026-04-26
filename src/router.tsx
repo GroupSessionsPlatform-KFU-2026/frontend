@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 import LandingPage from '@/modules/landing/pages/LandingPage';
 import LoginPage from '@/modules/auth/pages/LoginPage';
 import RegisterPage from '@/modules/auth/pages/RegisterPage';
@@ -7,9 +7,8 @@ import DashboardPage from '@/modules/dashboard/pages/DashboardPage';
 import CreateRoomPage from '@/modules/room/pages/CreateRoomPage';
 import RoomPage from '@/modules/room/pages/RoomPage';
 
-//TODO: впистаь приватные маршруты в приватный роут после реализации авторизации
 export const router = createBrowserRouter([
-  //публичные роуты
+  //паблик роуты
   {
     path: '/',
     element: <LandingPage />,
@@ -22,17 +21,29 @@ export const router = createBrowserRouter([
     path: '/register',
     element: <RegisterPage />,
   },
-  //приватный роуты
+
+  //приватные роуты
   {
-    path: '/dashboard',
-    element: <DashboardPage />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/dashboard',
+        element: <DashboardPage />,
+      },
+      {
+        path: '/room/create',
+        element: <CreateRoomPage />,
+      },
+      {
+        path: '/room/:roomId',
+        element: <RoomPage />,
+      },
+    ],
   },
+
+  //роут не найден
   {
-    path: '/room/create',
-    element: <CreateRoomPage />,
-  },
-  {
-    path: '/room/:roomId',
-    element: <RoomPage />,
+    path: '*',
+    element: <Navigate to="/" replace />,
   },
 ]);
