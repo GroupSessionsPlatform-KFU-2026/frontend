@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
+
 import LandingPage from '@/modules/landing/pages/LandingPage';
 import LoginPage from '@/modules/auth/pages/LoginPage';
 import RegisterPage from '@/modules/auth/pages/RegisterPage';
