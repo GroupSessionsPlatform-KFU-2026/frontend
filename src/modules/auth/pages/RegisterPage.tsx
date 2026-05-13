@@ -1,8 +1,39 @@
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { authApi } from '@/api/auth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      await authApi.register({ username, email, password });
+      alert('Регистрация успешна! Теперь войдите в систему.');
+      navigate('/login');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'response' in err) {
+        const axiosError = err as { response?: { data?: { message?: string } } };
+        setError(axiosError.response?.data?.message || 'Ошибка регистрации');
+      } else {
+        setError('Ошибка регистрации');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <Card className="w-full max-w-md">
@@ -10,20 +41,51 @@ const RegisterPage = () => {
           <CardTitle>Регистрация</CardTitle>
           <CardDescription>Создайте новый аккаунт</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Имя</label>
-            <Input placeholder="Иван Иванов" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Email</label>
-            <Input type="email" placeholder="example@mail.ru" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Пароль</label>
-            <Input type="password" placeholder="••••••••" />
-          </div>
-          <Button className="w-full">Зарегистрироваться</Button>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Имя пользователя</label>
+              <Input
+                placeholder="ivan123"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Email</label>
+              <Input
+                type="email"
+                placeholder="example@mail.ru"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Пароль</label>
+              <Input
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
+            </Button>
+          </form>
+
+          <p className="text-center text-sm text-gray-600 mt-4">
+            Уже есть аккаунт?{' '}
+            <Link to="/login" className="text-blue-600 hover:underline">
+              Войти
+            </Link>
+          </p>
         </CardContent>
       </Card>
     </div>
