@@ -1,3 +1,4 @@
+import { formatTime } from '@/lib/formatTime';
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { roomsApi } from '@/api/rooms';
@@ -142,12 +143,6 @@ const PomodoroTimer = ({ isModerator = true }: PomodoroTimerProps) => {
         } catch (error) {
             console.error('Ошибка сброса таймера:', error);
         }
-    };
-
-    const formatTime = (seconds: number) => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
     return (
