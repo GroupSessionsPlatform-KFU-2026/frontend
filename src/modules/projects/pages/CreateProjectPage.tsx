@@ -1,3 +1,4 @@
+import { createProjectSchema } from '@/lib/validation/forms';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { projectsApi } from '@/api/projects';
@@ -16,8 +17,9 @@ const CreateProjectPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim()) {
-      setError('Название проекта обязательно');
+    const validation = createProjectSchema.safeParse({ title, description });
+    if (!validation.success) {
+      setError(validation.error.issues[0].message);
       return;
     }
 
@@ -25,7 +27,7 @@ const CreateProjectPage = () => {
     setIsLoading(true);
 
     try {
-      await projectsApi.create({ title, description: description || undefined });
+      await projectsApi.create(validation.data);
       navigate('/projects');
     } catch (err) {
       console.error('Ошибка создания проекта:', err);
@@ -48,7 +50,7 @@ const CreateProjectPage = () => {
           <CardDescription>Проект объединяет комнаты по общей теме</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form noValidate onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="title">Название проекта *</Label>
               <Input
@@ -70,7 +72,11 @@ const CreateProjectPage = () => {
               />
             </div>
 
-            {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+            {error && (
+              <div role="alert" className="text-red-500 text-sm text-center">
+                {error}
+              </div>
+            )}
 
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? 'Создание...' : 'Создать проект'}
