@@ -4,7 +4,7 @@ import { projectsApi } from '@/api/projects';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, AlertCircle, RefreshCw } from 'lucide-react';
-import Spinner from '@/components/ui/spinner';
+import { Spinner } from '@/components/ui/spinner';
 
 interface Project {
     id: number;

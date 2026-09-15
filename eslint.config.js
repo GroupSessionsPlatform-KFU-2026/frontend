@@ -54,5 +54,11 @@ export default tseslint.config(
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
   },
+  {
+    files: ['src/context/AuthContext.tsx'],
+    rules: {
+      'react-refresh/only-export-components': ['warn', { allowExportNames: ['useAuth'] }],
+    },
+  },
   prettier
 );

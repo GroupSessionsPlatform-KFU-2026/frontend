@@ -13,7 +13,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { toast } from 'sonner';
-import Spinner from '@/components/ui/spinner';
+import { Spinner } from '@/components/ui/spinner';
 
 interface Project {
     id: number;
@@ -84,7 +84,7 @@ const CreateRoomPage = () => {
     };
 
     if (createdRoom) {
-        const inviteLink = `${window.location.origin}/room/${createdRoom.id}`;
+        const inviteLink = `${window.location.origin}${import.meta.env.BASE_URL}#/room/${createdRoom.id}`;
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-50">
                 <Card className="w-full max-w-lg">
