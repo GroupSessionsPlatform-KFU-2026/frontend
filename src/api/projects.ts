@@ -1,4 +1,3 @@
-import apiClient from './client';
 import type { paths } from './types';
 import { mockProjects } from './mocks';
 
@@ -109,7 +108,7 @@ export const projectsApi = {
     */
   },
 
-  getProjectTags: async (projectId: number) => {
+  getProjectTags: async (_projectId: number) => {
     if (USE_MOCK) {
       //моки - пустой массив
       return { data: [] };
@@ -147,7 +146,7 @@ export const projectsApi = {
     */
   },
 
-  removeTag: async (projectId: number, tagId: number) => {
+  removeTag: async (_projectId: number, _tagId: number) => {
     if (USE_MOCK) {
       //моки - успех
       return { data: null };

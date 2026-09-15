@@ -19,7 +19,7 @@ apiClient.use({
   onResponse: async ({ response }) => {
     if (response.status === 401) {
       localStorage.removeItem('access_token');
-      window.location.href = '/login';
+      window.location.href = `${import.meta.env.BASE_URL}#/login`;
     }
     return response;
   },

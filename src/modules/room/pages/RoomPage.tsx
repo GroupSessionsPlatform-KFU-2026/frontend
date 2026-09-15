@@ -5,7 +5,7 @@ import { roomsApi } from '@/api/rooms';
 import { Button } from '@/components/ui/button';
 import { LogOut, PanelRightOpen, PanelRightClose, Users, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
-import Spinner from '@/components/ui/spinner';
+import { Spinner } from '@/components/ui/spinner';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Whiteboard from '../components/Whiteboard';
 import PomodoroTimer from '../components/PomodoroTimer';

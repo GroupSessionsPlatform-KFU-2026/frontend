@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { Users, MessageSquare } from 'lucide-react';
 import Participants from './Participants';
 import Chat from './Chat';

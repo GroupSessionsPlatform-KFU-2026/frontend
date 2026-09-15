@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import AuthenticatedLayout from '@/components/AuthenticatedLayout';
 
@@ -14,7 +14,7 @@ import RoomPage from '@/modules/room/pages/RoomPage';
 import JoinRoomPage from '@/modules/room/pages/JoinRoomPage';
 import NotFoundPage from '@/modules/not-found/pages/NotFoundPage';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   //паблик роуты
   { path: '/', element: <LandingPage /> },
   { path: '/login', element: <LoginPage /> },

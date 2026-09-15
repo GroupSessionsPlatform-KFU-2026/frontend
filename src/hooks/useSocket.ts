@@ -19,12 +19,12 @@ export const useSocket = (roomId: string) => {
 
     socket.on('connect', () => {
       setIsConnected(true);
-      console.log('Socket connected');
+
     });
 
     socket.on('disconnect', () => {
       setIsConnected(false);
-      console.log('Socket disconnected');
+
     });
 
     return () => {

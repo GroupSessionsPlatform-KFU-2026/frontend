@@ -20,7 +20,6 @@ export const authApi = {
     if (result.data?.access_token) {
       localStorage.setItem('access_token', result.data.access_token);
 
-      console.log('Токен получен');
     }
 
     return result;
@@ -28,13 +27,13 @@ export const authApi = {
 
   setToken: (token: string) => {
     localStorage.setItem('access_token', token);
-    console.log('Токен сохранён вручную');
+
   },
 
   logout: () => {
     localStorage.removeItem('access_token');
-    console.log('Пользователь вышел из аккаунта');
-    window.location.href = '/login';
+
+    window.location.href = `${import.meta.env.BASE_URL}#/login`;
   },
 
   isLoggedIn: (): boolean => {

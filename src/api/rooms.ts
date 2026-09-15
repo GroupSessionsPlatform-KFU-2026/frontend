@@ -162,7 +162,7 @@ export const roomsApi = {
 
   removeParticipant: async (roomId: string, userId: number) => {
     if (USE_MOCK) {
-      console.log('Мок: удаление участника', { roomId, userId });
+
       return { data: null };
     }
     return apiClient.DELETE('/rooms/{room_id}/participants/{user_id}', {
@@ -181,7 +181,7 @@ export const roomsApi = {
     body: paths['/rooms/{room_id}/participants/{user_id}']['patch']['requestBody']['content']['application/json']
   ) => {
     if (USE_MOCK) {
-      console.log('Мок: обновление роли участника', { roomId, userId, body });
+
       return { data: null };
     }
     return apiClient.PATCH('/rooms/{room_id}/participants/{user_id}', {
@@ -296,7 +296,7 @@ export const roomsApi = {
     body: paths['/rooms/{room_id}/pomodoro/settings']['patch']['requestBody']['content']['application/json']
   ) => {
     if (USE_MOCK) {
-      console.log('Мок: обновление настроек таймера', body);
+
       return { data: null };
     }
     return apiClient.PATCH('/rooms/{room_id}/pomodoro/settings', {

@@ -8,7 +8,6 @@ import {
     Trash2,
     Palette,
     Pin,
-    Square,
     Type,
     Circle as CircleIcon,
     Square as SquareIcon,
@@ -83,7 +82,7 @@ interface CommentData {
 
 type Tool = 'brush' | 'eraser' | 'marker' | 'shape' | 'text';
 
-const Whiteboard = ({ roomId }: { roomId: string }) => {
+const Whiteboard = ({ roomId: _roomId }: { roomId: string }) => {
     const [lines, setLines] = useState<LineData[]>([]);
     const [currentLine, setCurrentLine] = useState<LineData | null>(null);
     const [markers, setMarkers] = useState<MarkerData[]>([]);

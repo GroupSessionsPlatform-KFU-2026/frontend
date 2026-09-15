@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-import { roomsApi } from '@/api/rooms';
-import { usersApi } from '@/api/users';
 import { Button } from '@/components/ui/button';
-import { Users, Crown, Shield, User, MoreVertical, X, Plus } from 'lucide-react';
-import { toast } from 'sonner';
+import { Users, Crown, Shield, User, MoreVertical, X } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -94,50 +91,50 @@ const Participants = ({ roomId, currentUserId = 1, isModerator = true }: Partici
     const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
     const [selectedUserName, setSelectedUserName] = useState('');
 
-    const fetchUserName = async (userId: number): Promise<string> => {
-        //апи-вызов
-        /*
-        try {
-          const response = await usersApi.getById(userId);
-          return response.data?.username || `Пользователь ${userId}`;
-        } catch (error) {
-          console.error(`Ошибка загрузки имени пользователя ${userId}:`, error);
-          return `Пользователь ${userId}`;
-        }
-        */
-        return MOCK_NAMES[userId] || `Пользователь ${userId}`;
-    };
-
-    const loadParticipants = async () => {
-        setIsLoading(true);
-        try {
+    useEffect(() => {
+        const fetchUserName = async (userId: number): Promise<string> => {
             //апи-вызов
             /*
-            const response = await roomsApi.getParticipants(roomId);
-            const rawParticipants = response.data?.results || [];
-            const participantsWithNames = await Promise.all(
-              rawParticipants.map(async (p: Participant) => ({
-                ...p,
-                user_name: await fetchUserName(p.user_id),
-              }))
-            );
-            setParticipants(participantsWithNames);
+            try {
+              const response = await usersApi.getById(userId);
+              return response.data?.username || `Пользователь ${userId}`;
+            } catch (error) {
+              console.error(`Ошибка загрузки имени пользователя ${userId}:`, error);
+              return `Пользователь ${userId}`;
+            }
             */
-            const participantsWithNames = await Promise.all(
-                MOCK_PARTICIPANTS.map(async (p) => ({
+            return MOCK_NAMES[userId] || `Пользователь ${userId}`;
+        };
+
+        const loadParticipants = async () => {
+            setIsLoading(true);
+            try {
+                //апи-вызов
+                /*
+                const response = await roomsApi.getParticipants(roomId);
+                const rawParticipants = response.data?.results || [];
+                const participantsWithNames = await Promise.all(
+                  rawParticipants.map(async (p: Participant) => ({
                     ...p,
                     user_name: await fetchUserName(p.user_id),
-                }))
-            );
-            setParticipants(participantsWithNames);
-        } catch (error) {
-            console.error('Ошибка загрузки участников:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+                  }))
+                );
+                setParticipants(participantsWithNames);
+                */
+                const participantsWithNames = await Promise.all(
+                    MOCK_PARTICIPANTS.map(async (p) => ({
+                        ...p,
+                        user_name: await fetchUserName(p.user_id),
+                    }))
+                );
+                setParticipants(participantsWithNames);
+            } catch (error) {
+                console.error('Ошибка загрузки участников:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    useEffect(() => {
         loadParticipants();
     }, [roomId]);
 
@@ -192,7 +189,7 @@ const Participants = ({ roomId, currentUserId = 1, isModerator = true }: Partici
         }
         */
         // мок
-        console.log('Назначить модератором:', selectedUserId);
+
         setParticipants((prev) =>
             prev.map((p) => (p.user_id === selectedUserId ? { ...p, role: 'moderator' } : p))
         );
@@ -217,7 +214,7 @@ const Participants = ({ roomId, currentUserId = 1, isModerator = true }: Partici
         }
         */
         // мок
-        console.log('Снять модератора:', selectedUserId);
+
         setParticipants((prev) =>
             prev.map((p) => (p.user_id === selectedUserId ? { ...p, role: 'participant' } : p))
         );
@@ -237,7 +234,7 @@ const Participants = ({ roomId, currentUserId = 1, isModerator = true }: Partici
           toast.error('Не удалось удалить участника');
         }
         */
-        console.log('Удалить участника:', userId);
+
         setParticipants((prev) => prev.filter((p) => p.user_id !== userId));
     };
 

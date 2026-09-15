@@ -47,7 +47,7 @@ const PomodoroTimer = ({ isModerator = true }: PomodoroTimerProps) => {
                         setTime(remaining);
                     } else {
                         setTime(
-                            response.data.current_phase === 'work' ? workDuration * 60 : breakDuration * 60
+                            response.data.current_phase === 'work' ? response.data.work_duration * 60 : response.data.short_break_duration * 60
                         );
                     }
                 }
@@ -62,9 +62,9 @@ const PomodoroTimer = ({ isModerator = true }: PomodoroTimerProps) => {
     useEffect(() => {
         let interval: ReturnType<typeof setInterval> | null = null;
 
-        if (isRunning && time > 0) {
+        if (isRunning) {
             interval = setInterval(() => {
-                setTime((prev) => prev - 1);
+                setTime((prev) => Math.max(0, prev - 1));
             }, 1000);
         }
 

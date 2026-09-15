@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { projectsApi } from '@/api/projects';
 import { roomsApi } from '@/api/rooms';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Plus, DoorOpen, AlertCircle, RefreshCw } from 'lucide-react';
-import Spinner from '@/components/ui/spinner';
+import { Spinner } from '@/components/ui/spinner';
 
 interface Project {
     id: number;
@@ -30,7 +30,7 @@ const ProjectDetailsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         if (!id) return;
 
         const projectId = Number(id);
@@ -56,11 +56,11 @@ const ProjectDetailsPage = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [id]);
 
     useEffect(() => {
         loadData();
-    }, [id]);
+    }, [loadData]);
 
     const handleCreateRoom = () => {
         navigate(`/room/create?projectId=${id}`);
